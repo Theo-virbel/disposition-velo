@@ -3,6 +3,8 @@ import osmnx as ox
 import networkx as nx
 from typing import Tuple, Dict, List
 
+S = "drive"
+
 DEFAULT_COUNTRY = "France"
 INITIAL_ZOOM_LEVEL = 14
 
@@ -12,7 +14,7 @@ def get_osmnx_graph(city_location: str):
     :param city_location: The geographical location in the form of a string, representing the city or place for which the OSMnx graph is to be retrieved.
     :return: A graph object representing the street network of the specified city or place, which is obtained using OSMnx's graph_from_place function.
     """
-    graph = ox.graph_from_place(city_location, network_type="drive")
+    graph = ox.graph_from_place(city_location, network_type=("%s" % S))
 
     return graph
 
@@ -33,15 +35,6 @@ def create_folium_map(city_center: List[float]) -> folium.Map:
     return folium.Map(location=city_center, zoom_start=INITIAL_ZOOM_LEVEL)
 
 
-def add_geojson_to_map(edges, map_object: folium.Map) -> None:
-    """
-    :param edges: A GeoJSON object or file path representing the geographic features to be added to the map.
-    :param map_object: A folium.Map object to which the GeoJSON features will be added.
-    :return: None
-    """
-    folium.GeoJson(edges).add_to(map_object)
-
-
 def get_centered_map(city: str, country: str = DEFAULT_COUNTRY) -> folium.Map:
     """
     :param city: Name of the city for which the map is to be centered.
@@ -51,6 +44,7 @@ def get_centered_map(city: str, country: str = DEFAULT_COUNTRY) -> folium.Map:
     city_location = f"{city}, {country}"
     city_graph = get_osmnx_graph(city_location)
     nodes, edges = ox.graph_to_gdfs(city_graph)
+
 
     city_center = get_city_center(edges)
     centered_map = create_folium_map(city_center)
