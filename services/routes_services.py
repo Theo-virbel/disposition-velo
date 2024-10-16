@@ -12,6 +12,6 @@ def register_routes(app):
     def show_map_stations():
         city_stations = jcds.get_stations()
         city_centered_map = maps.get_centered_map(jcds.DEFAULT_CONTRACT_CITY)
-        city_centered_map = maps.add_locations_to_map(city_centered_map, city_stations)
+        stations_map = maps.add_locations_to_map(city_centered_map, city_stations)
 
-        return city_centered_map.get_root().render()
+        return stations_map.get_root().render()
