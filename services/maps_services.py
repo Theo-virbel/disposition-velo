@@ -14,15 +14,7 @@ def get_osmnx_graph(city_location: str):
     """
     graph = ox.graph_from_place(city_location, network_type="drive")
 
-
     return graph
-
-
-
-
-
-
-
 
 
 def get_city_center(edges) -> List[float]:
