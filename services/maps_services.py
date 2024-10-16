@@ -1,10 +1,10 @@
 import folium
 import osmnx as ox
 import networkx as nx
+import branca
 from typing import Tuple, Dict, List
 
-S = "drive"
-
+NETWORK_TYPE = "drive"
 DEFAULT_COUNTRY = "France"
 INITIAL_ZOOM_LEVEL = 14
 
@@ -14,7 +14,7 @@ def get_osmnx_graph(city_location: str):
     :param city_location: The geographical location in the form of a string, representing the city or place for which the OSMnx graph is to be retrieved.
     :return: A graph object representing the street network of the specified city or place, which is obtained using OSMnx's graph_from_place function.
     """
-    graph = ox.graph_from_place(city_location, network_type=("%s" % S))
+    graph = ox.graph_from_place(city_location, network_type=("%s" % NETWORK_TYPE))
 
     return graph
 
@@ -81,4 +81,21 @@ def add_locations_to_map(map_object: folium.Map, locations: List[Dict[str, any]]
             popup=location["nom"],
             icon=folium.Icon(color=get_score_color(availability))
         ).add_to(map_object)
+    return map_object
+
+def add_legend_to_map(map_object: folium.Map):
+    legend_html = '''
+    <div style="position: fixed; 
+         bottom: 50px; left: 50px; width: 150px; height: 90px; 
+         background-color: white; z-index:9999; font-size:14px;
+         border:2px solid grey;
+         padding: 10px;">
+         <b> Légende </b> <br>
+         <i style="background:blue; width:10px; height:10px; 
+            display:inline-block;"></i> Ville <br>
+         <i style="background:green; width:10px; height:10px; 
+            display:inline-block;"></i> Forêt <br>
+    </div>
+    '''
+    map_object.get_root().html.add_child(folium.Element(legend_html))
     return map_object
