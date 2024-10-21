@@ -1,5 +1,12 @@
-# jcDecauxApi
+# Rééquilibrage des stations de vélos partagés
+Dans une ville comme Nancy, les systèmes de vélos en libre-service sont largement utilisés pour des trajets urbains courts. Cependant, la gestion des stocks de vélos entre les différentes stations est cruciale pour offrir un service de qualité.
 
+# Contexte du projet
+En tant que futur développeur en IA, vous allez concevoir et développer une interface interactive qui intègre les données des stations de vélos partagés de Nancy via l'API de JCDecaux.
+Vous allez utiliser les données d'OpenStreetMap avec OSMnx pour représenter les stations sur une carte interactive avec Folium et optimiser le chemin entre stations avec NetworkX.
+L'application permettra de visualiser les stations surchargées ou sous-alimentées et indiquera aux utilisateurs à déplacer les vélos en fonction des besoins
+
+# jcDecauxApi
 API Python pour interagir avec le service de vélos en libre-service de JCDecaux.
 
 ## Table des matières
